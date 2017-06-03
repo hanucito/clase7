@@ -47,11 +47,15 @@ class AdminCategories extends Component {
 
   removeCategory(category) {}
 
-  updateCategory(category) {}
+  saveCategory(category) {
+    console.log(category)
+
+  }
 
   addCategory(category) {
     this.setState(prevState => ({
       ...prevState,
+      selected: category,
       showModal: true
     }));
   }
@@ -86,10 +90,10 @@ class AdminCategories extends Component {
 
           {status === 'failure' && <div>Error: {error} </div>}
 
-          {status === 'success' && <CategoriesList items={categories} />}
+          {status === 'success' && <CategoriesList items={categories} onEdit={item => this.addCategory(item)}/>}
         </Row>
 
-        <CategoryModal onCancel={() => this.hideModal()} show={showModal} selected={selected} />
+        <CategoryModal onCancel={() => this.hideModal()} show={showModal} category={selected} onSubmit={category => this.saveCategory(category)}/>
       </Grid>
     );
   }
